@@ -25,6 +25,8 @@ public class EventListener implements Listener {
     private float deductFlying;
     private float deductMovingFlyingEnabled;
 
+    private int blockBreakDelay = 100;
+
     EventListener(BuildMode plugin) {
         this.plugin = plugin;
         server = Bukkit.getServer();
@@ -61,34 +63,22 @@ public class EventListener implements Listener {
             return;
         }
 
-        try {
-            plugin.deductExp(deductInstantBreak, player);
-        } catch(Error err) {
-            player.sendMessage(ChatColor.RED + "You don't have enough XP to insta-break this!");
+        if(rateLimitedPlayers.contains(player)) {
             event.setInstaBreak(false);
-            return;
-        }
-
-        Location location = event.getBlock().getLocation();
-
-//        server.dispatchCommand(player, "setblock " + location.getBlockX() + " " + location.getBlockY() + " " + location.getBlockZ() + " air destroy");
-
-        while(!rateLimitedPlayers.contains(player)) {
-            rateLimitedPlayers.add(player);
-
-            timer.schedule(
-                    new java.util.TimerTask() {
-                        @Override
-                        public void run() {
-                            rateLimitedPlayers.remove(player);
-                        }
-                    },
-                    100
-            );
-
-            event.setInstaBreak(true);
-        }
+            timer.schedule(new java.util.TimerTask() {
+                               @Override
+                               public void run() {
+                                   handleBlockBreak(event);
+                               }
+                           },
+                    blockBreakDelay);
+        } else
+            handleBlockBreak(event);
     }
+//    @EventHandler
+//    public void onJoin(PlayerJoinEvent event) {
+//        Player player = event.getPlayer();
+//    }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
@@ -108,10 +98,11 @@ public class EventListener implements Listener {
     }
 
     @EventHandler
-    public void onExpGain(PlayerExpChangeEvent event) {
+    public void onExpChange(PlayerExpChangeEvent event) {
         Player player = event.getPlayer();
 
-        if(!registry.hasPlayer(player)) return;
+        if(!registry.hasPlayer(player))
+            return;
 
         if(!player.getAllowFlight() && event.getAmount() >= deductFlying) {
             player.setAllowFlight(true);
@@ -123,19 +114,20 @@ public class EventListener implements Listener {
     public void onMoving(PlayerMoveEvent event) {
         Player player = event.getPlayer();
 
-        if(!registry.hasPlayer(player)) return;
+        if(!registry.hasPlayer(player))
+            return;
 
         if(
                 event.getFrom().getBlockX() == event.getTo().getBlockX()
                         && event.getFrom().getBlockY() == event.getTo().getBlockY()
-                        && event.getFrom().getBlockZ() == event.getTo().getBlockZ()) return;
+                        && event.getFrom().getBlockZ() == event.getTo().getBlockZ())
+            return;
 
         if(player.getAllowFlight() && !player.isFlying()) {
             try {
                 plugin.deductExp(deductMovingFlyingEnabled, player);
             } catch(Error err) {
                 player.sendMessage(ChatColor.RED + "You don't have enough XP to keep flight enabled!");
-
                 player.setAllowFlight(false);
             }
         }
@@ -157,8 +149,33 @@ public class EventListener implements Listener {
     public void onGameModeChange(PlayerGameModeChangeEvent event) {
         Player player = event.getPlayer();
 
-        if(event.getNewGameMode() == GameMode.CREATIVE && registry.hasPlayer(player)) {
+        if(event.getNewGameMode() == GameMode.CREATIVE && registry.hasPlayer(player))
             registry.removePlayer(player);
+    }
+
+    private void handleBlockBreak(BlockDamageEvent event) {
+        Player player = event.getPlayer();
+
+        rateLimitedPlayers.add(player);
+
+        try {
+            plugin.deductExp(deductInstantBreak, player);
+        } catch(Error err) {
+            player.sendMessage(ChatColor.RED + "You don't have enough XP to insta-break this!");
+            event.setInstaBreak(false);
+            return;
         }
+
+        timer.schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        rateLimitedPlayers.remove(player);
+                    }
+                },
+                blockBreakDelay
+        );
+
+        event.setInstaBreak(true);
     }
 }
