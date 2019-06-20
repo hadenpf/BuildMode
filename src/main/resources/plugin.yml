@@ -22,7 +22,7 @@ permissions:
     description: Allows use of Build Mode.
     default: true
   buildmode.fly:
-    description: Allows flying while in Build Mode.
+    description: Allows flight while in Build Mode.
     default: true
   buildmode.instantbreak:
     description: Allows instant breaking of blocks while in Build Mode.
