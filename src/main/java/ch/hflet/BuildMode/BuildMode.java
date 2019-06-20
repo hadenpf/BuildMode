@@ -88,15 +88,13 @@ public class BuildMode extends JavaPlugin implements Listener {
     Location getSafeLocation(Player player) {
         Location location  = player.getLocation();
 
-        for(int y = location.getBlockY(); y >= 0; y--) {
+        for(int y = location.getBlockY(); y >= (y - 25); y--) {
             Block block = player.getWorld().getBlockAt(location.getBlockX(), y, location.getBlockZ());
-            if(block.getType() != Material.AIR) {
+            if(block.getType() != Material.AIR)
                 location.setY(y + 1);
-                return location;
-            }
         }
 
-        return null;
+        return location;
     }
 
     static boolean hasPermission(CommandSender sender, String permission) {
@@ -112,3 +110,11 @@ public class BuildMode extends JavaPlugin implements Listener {
         );
     }
 }
+
+/*
+
+    MASTER TODOs
+
+    
+
+ */

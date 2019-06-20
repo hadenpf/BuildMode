@@ -41,3 +41,11 @@ class PlayerRegistry {
         return registeredPlayers;
     }
 }
+
+/*
+
+    LIST OF TODOs
+
+    TODO: Register players by UUID instead of Player object, for cross-session enabling.
+
+ */

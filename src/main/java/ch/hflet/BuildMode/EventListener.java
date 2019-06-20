@@ -176,3 +176,15 @@ public class EventListener implements Listener {
         event.setInstaBreak(true);
     }
 }
+
+/*
+
+    LIST OF TODOs
+
+    TODO: Fix instabreak ratelimiting to work similarly to Creative.
+    TODO: Dispatch proper particles and sound to the client upon instabreak
+    -- (might have to use net.minecraft.server stuff)
+    TODO: Remember players in registry on logout, and reinstate them on login
+    TODO: Add status bar text when build mode is enabled.
+
+ */
