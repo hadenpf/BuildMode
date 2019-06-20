@@ -81,20 +81,17 @@ public class EventListener implements Listener {
 //    }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-
-
-
-//        if(player.getFallDistance()) player.teleport(plugin.getSafeLocation(player));
-    }
-
-    @EventHandler
     public void onLeave(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
-        if(registry.hasPlayer(player))
+        if(registry.hasPlayer(player)) {
+            if(player.isFlying()) {
+                player.teleport(plugin.getSafeLocation(player));
+                player.setFlying(false);
+            }
+
             registry.removePlayer(player);
+        }
     }
 
     @EventHandler
