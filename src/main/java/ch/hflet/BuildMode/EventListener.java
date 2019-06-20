@@ -39,10 +39,6 @@ public class EventListener implements Listener {
         deductFlying = (float) config.getDouble("deductions.flying") * deductionModifier;
         deductMovingFlyingEnabled = (float) config.getDouble("deductions.moving_while_flight_enabled") * deductionModifier;
 
-        plugin.getLogger().info("Deduction for Instabreak: " + deductInstantBreak);
-        plugin.getLogger().info("Deduction for flying: " + deductFlying);
-        plugin.getLogger().info("Deduction for moving in flight: " + deductMovingFlyingEnabled);
-
         isSetup = true;
     }
 
