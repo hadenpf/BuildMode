@@ -1,0 +1,36 @@
+name: BuildMode
+version: 0.1.0
+description: Allows players to use Creative-like features for building in Survival Mode.
+author: OKhando
+api-version: 1.14
+
+main: ch.hflet.BuildMode.BuildMode
+database: false
+load: POSTWORLD
+
+commands:
+  buildmode:
+    description: Enter and exit Build Mode.
+    aliases: [bm, buildermode, build]
+    usage: <command> [enable|disable|config [setting <value>]]
+
+permissions:
+  buildmode.*:
+    description: Allows use of all Build Mode features.
+    default: op
+  buildmode.use:
+    description: Allows use of Build Mode.
+    default: true
+  buildmode.fly:
+    description: Allows flying while in Build Mode.
+    default: true
+  buildmode.instantbreak:
+    description: Allows instant breaking of blocks while in Build Mode.
+    default: true
+  buildmode.set:
+    description: Allows individual configuration of Build Mode features.
+    default: true
+  buildmode.set.fly:
+    description: Allows individual toggling of Build Mode flight.
+  buildmode.set.instantbreak:
+    description: Allows individual toggling of Build Mode instant breaking.
