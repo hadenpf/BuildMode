@@ -65,7 +65,6 @@ public class EventListener implements Listener {
         }
 
         if(rateLimitedPlayers.contains(player)) {
-            event.setInstaBreak(false);
             timer.schedule(new java.util.TimerTask() {
                                @Override
                                public void run() {
@@ -139,6 +138,7 @@ public class EventListener implements Listener {
                 if(plugin.getSafeLocation(player) != null)
                     player.teleport(plugin.getSafeLocation(player));
 
+                player.setAllowFlight(false);
                 player.setFlying(false);
             }
     }
