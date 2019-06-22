@@ -134,7 +134,7 @@ public class EventListener implements Listener {
             try {
                 plugin.deductExp(deductFlying, player);
             } catch(Error err) {
-                player.sendMessage(ChatColor.RED + "You don't have enough XP to cover this action!");
+                player.sendMessage(ChatColor.RED + "You don't have enough XP to fly!");
 
                 if(plugin.getSafeLocation(player) != null)
                     player.teleport(plugin.getSafeLocation(player));
