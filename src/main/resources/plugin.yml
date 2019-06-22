@@ -1,5 +1,5 @@
 name: BuildMode
-version: 0.1.0
+version: 0.1.1
 description: Allows players to use Creative-like features for building in Survival Mode.
 author: OKhando
 api-version: 1.14
@@ -12,7 +12,7 @@ commands:
   buildmode:
     description: Enter and exit Build Mode.
     aliases: [bm, buildermode, build]
-    usage: <command> [enable|disable|config [setting <value>]]
+    usage: <command> [enable|disable]
 
 permissions:
   buildmode.*:
@@ -24,13 +24,15 @@ permissions:
   buildmode.fly:
     description: Allows flight while in Build Mode.
     default: true
-  buildmode.instantbreak:
+  buildmode.instabreak:
     description: Allows instant breaking of blocks while in Build Mode.
+  buildmode.instabreak.bedrock:
+    description: Allows breaking bedrock in Build Mode.
     default: true
   buildmode.set:
     description: Allows individual configuration of Build Mode features.
     default: true
   buildmode.set.fly:
     description: Allows individual toggling of Build Mode flight.
-  buildmode.set.instantbreak:
+  buildmode.set.instabreak:
     description: Allows individual toggling of Build Mode instant breaking.
