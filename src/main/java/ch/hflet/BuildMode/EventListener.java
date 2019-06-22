@@ -54,10 +54,11 @@ public class EventListener implements Listener {
     public void onBlockDamage(BlockDamageEvent event) {
         Player player = event.getPlayer();
 
-        if(!registry.hasPlayer(player))
+        if(!registry.hasPlayer(player) || !BuildMode.hasPermission(player, "instabreak"))
             return;
 
-        if(event.getBlock().getType() == Material.BEDROCK) {
+        if(event.getBlock().getType() == Material.BEDROCK
+        && !BuildMode.hasPermission(player, "instabreak.bedrock")) {
             player.sendMessage(ChatColor.YELLOW + "no");
             event.setCancelled(true);
             return;
@@ -111,7 +112,7 @@ public class EventListener implements Listener {
     public void onMoving(PlayerMoveEvent event) {
         Player player = event.getPlayer();
 
-        if(!registry.hasPlayer(player))
+        if(!registry.hasPlayer(player) || !BuildMode.hasPermission(player, "fly"))
             return;
 
         if(
