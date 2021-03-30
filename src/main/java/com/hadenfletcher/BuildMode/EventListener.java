@@ -1,4 +1,4 @@
-package ch.hflet.BuildMode;
+package com.hadenfletcher.BuildMode;
 
 import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -8,7 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.player.*;
 
-import java.time.Instant;
 import java.util.*;
 
 public class EventListener implements Listener {

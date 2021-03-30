@@ -1,4 +1,4 @@
-package ch.hflet.BuildMode;
+package com.hadenfletcher.BuildMode;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;

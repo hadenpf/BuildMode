@@ -1,10 +1,11 @@
 name: BuildMode
 version: 0.1.2
 description: Allows players to use Creative-like features for building in Survival Mode.
-author: OKhando
+author: hadenpf
 api-version: 1.14
+api: [] # for some reason I needed to include this
 
-main: ch.hflet.BuildMode.BuildMode
+main: com.hadenfletcher.BuildMode.BuildMode
 database: false
 load: POSTWORLD
 
